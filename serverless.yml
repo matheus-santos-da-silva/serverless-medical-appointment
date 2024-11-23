@@ -1,0 +1,26 @@
+service: sls-medical-appointment
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  memorySize: 128
+  timeout: 3
+
+functions:
+  getAppointments:
+    handler: src/agenda/controller/get-appointments-controller.getAppointmentsController
+    events:
+      - http:
+          method: get
+          path: /agendas
+
+  scheduleAppointment:
+    handler: src/scheduling/controller/schedule-appointment-controller.ScheduleAppointmentsController
+    events:
+      - http:
+          method: post
+          path: /agendamento
+
+plugins:
+  - serverless-offline
